@@ -1,0 +1,62 @@
+---
+title: "Untitled"
+author: '1'
+date: "2024-10-24"
+output: html_document
+---
+```{r}
+library(geodata)
+library(dplyr)
+library(raster)
+library(terra)
+library(tidyverse)
+library(sf)
+library(tmap)
+library(tmaptools)
+
+climate_raster_SSP5 <- terra::rast(
+  "/Users/paneva/Documents/UCL/CASA0005/Week_3/Homework_wk3/directory_wk3/climate/wc2.1_2.5m/wc2.1_2.5m_tmax_UKESM1-0-LL_ssp585_2081-2100.tif"
+)
+
+climate_raster_SSP1 <- terra::rast(
+  "/Users/paneva/Documents/UCL/CASA0005/Week_3/Homework_wk3/directory_wk3/climate/wc2.1_2.5m/wc2.1_2.5m_tmax_UKESM1-0-LL_ssp126_2081-2100.tif"
+)
+
+greek_outline <-  st_read(
+  "/Users/paneva/Documents/UCL/CASA0005/Week_3/Homework_wk3/directory_wk3/gadm41_GRC_shp/gadm41_GRC_0.shp"
+)
+
+climate_raster_SSP1_greece <- climate_raster_SSP1 %>%
+  crop(., greek_outline) %>%
+  terra::mask(., greek_outline)
+
+climate_raster_SSP5_greece <- climate_raster_SSP5 %>%
+  crop(., greek_outline) %>%
+  terra::mask(., greek_outline)
+
+monthlist <- c("Jan",
+               "Feb",
+               "Mar",
+               "Apr",
+               "May",
+               "Jun",
+               "Jul",
+               "Aug",
+               "Sep",
+               "Oct",
+               "Nov",
+               "Dec")
+
+names(climate_raster_SSP1_greece) <- monthlist
+names(climate_raster_SSP5_greece) <- monthlist
+
+#view(climate_raster_SSP1_greece)
+
+plot(climate_raster_SSP5_greece$Jul)
+
+```
+```{r}
+plot(climate_raster_SSP1_greece$Jul)
+
+```
+

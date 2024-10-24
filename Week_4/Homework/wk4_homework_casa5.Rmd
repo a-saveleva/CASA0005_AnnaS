@@ -1,0 +1,10 @@
+---
+title: "wk4_homework_casa5"
+author: "a-saveleva"
+date: "2024-10-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
