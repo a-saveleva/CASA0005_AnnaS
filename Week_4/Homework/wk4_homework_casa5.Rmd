@@ -22,7 +22,7 @@ Reading the csv file, and take the following columns:
 Drop the NA values.
 
 ```{r setup, include=FALSE}
-gii <- read_csv('HDR23-24_Composite_indices_complete_time_series.csv') %>%
+gii <- read_csv('HDR23-24_Composite_indices_complete_time_series.csv', locale = locale(encoding = "latin1") %>%
   select(.,
         c("iso3","country","gii_2010", "gii_2019")) %>%
   drop_na() %>%
